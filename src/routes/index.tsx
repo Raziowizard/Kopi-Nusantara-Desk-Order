@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
-import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart, Star } from "lucide-react";
+import { MapPin, Clock, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
+import { MenuPreview } from "../components/MenuPreview";
+import { TestimonialsSection } from "../components/TestimonialsSection";
+import { FaqSection } from "../components/FaqSection";
 
 const heroImage = "/images/hero-coffee-shop.jpg";
 const aboutImage = "/images/about-coffee-beans.jpg";
@@ -191,66 +194,13 @@ function HomePage() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <FaqSection />
+
       {/* WhatsApp Order */}
       <section className="mx-auto max-w-6xl px-4 pb-20">
         <WhatsAppOrder />
       </section>
     </>
-  );
-}
-
-function TestimonialCard({
-  quote,
-  name,
-  role,
-  image,
-}: {
-  quote: string;
-  name: string;
-  role: string;
-  image: string;
-}) {
-  return (
-    <div className="flex flex-col justify-between rounded-2xl border border-border/60 bg-card p-6 shadow-sm sm:p-8">
-      <div>
-        <div className="mb-4 flex gap-1 text-amber">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="h-4 w-4 fill-current" />
-          ))}
-        </div>
-        <p className="italic leading-relaxed text-foreground/90">"{quote}"</p>
-      </div>
-      <div className="mt-6 flex items-center gap-4 border-t border-border/60 pt-5">
-        <img
-          src={image}
-          alt={`Foto ${name}`}
-          width={48}
-          height={48}
-          loading="lazy"
-          className="h-12 w-12 rounded-full object-cover"
-        />
-        <div>
-          <h4 className="font-bold text-foreground">{name}</h4>
-          <p className="text-xs text-muted-foreground">{role}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MenuCard({ title, price, desc, tag }: { title: string; price: string; desc: string; tag: string }) {
-  return (
-    <div className="group rounded-2xl bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-      <div className="flex items-start justify-between">
-        <div>
-          <span className="inline-block rounded-full bg-amber/10 px-2.5 py-1 text-xs font-semibold text-amber-dark">
-            {tag}
-          </span>
-          <h3 className="mt-3 font-serif text-xl font-bold text-foreground">{title}</h3>
-        </div>
-        <span className="font-bold text-coffee">{price}</span>
-      </div>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-    </div>
   );
 }
