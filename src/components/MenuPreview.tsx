@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Minus, Plus } from "lucide-react";
+import type { CartItem } from "@/lib/cart";
+import { parsePrice } from "@/lib/cart";
 
 type MenuItem = {
   title: string;
@@ -64,7 +66,12 @@ const items: MenuItem[] = [
 
 const categories = ["Semua", "Kopi", "Non-Kopi", "Makanan"] as const;
 
-export function MenuPreview() {
+interface MenuPreviewProps {
+  cart: CartItem[];
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+}
+
+export function MenuPreview({ cart, setCart }: MenuPreviewProps) {
   const [active, setActive] = useState<(typeof categories)[number]>("Semua");
   const filtered = active === "Semua" ? items : items.filter((i) => i.category === active);
 
@@ -99,7 +106,7 @@ export function MenuPreview() {
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((item) => (
-            <MenuCard key={item.title} {...item} />
+            <MenuCard key={item.title} item={item} cart={cart} setCart={setCart} />
           ))}
         </div>
 
@@ -116,19 +123,84 @@ export function MenuPreview() {
   );
 }
 
-function MenuCard({ title, price, desc, tag }: MenuItem) {
+function MenuCard({
+  item,
+  cart,
+  setCart,
+}: {
+  item: MenuItem;
+  cart: CartItem[];
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+}) {
+  const existing = cart.find((c) => c.title === item.title);
+  const qty = existing?.qty ?? 0;
+
+  const add = () => {
+    setCart((prev) => {
+      const found = prev.find((c) => c.title === item.title);
+      if (found) {
+        return prev.map((c) => (c.title === item.title ? { ...c, qty: c.qty + 1 } : c));
+      }
+      return [
+        ...prev,
+        { title: item.title, price: parsePrice(item.price), priceLabel: item.price, qty: 1 },
+      ];
+    });
+  };
+
+  const update = (delta: number) => {
+    setCart((prev) =>
+      prev
+        .map((c) => (c.title === item.title ? { ...c, qty: Math.max(0, c.qty + delta) } : c))
+        .filter((c) => c.qty > 0)
+    );
+  };
+
   return (
-    <div className="group rounded-2xl bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+    <div className="group flex flex-col rounded-2xl bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <span className="inline-block rounded-full bg-amber/10 px-2.5 py-1 text-xs font-semibold text-amber-dark">
-            {tag}
+            {item.tag}
           </span>
-          <h3 className="mt-3 font-serif text-xl font-bold text-foreground">{title}</h3>
+          <h3 className="mt-3 font-serif text-xl font-bold text-foreground">{item.title}</h3>
         </div>
-        <span className="shrink-0 font-bold text-coffee">{price}</span>
+        <span className="shrink-0 font-bold text-coffee">{item.price}</span>
       </div>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+
+      <div className="mt-6 flex items-center gap-3">
+        {qty === 0 ? (
+          <button
+            type="button"
+            onClick={add}
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-coffee px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-coffee-light"
+          >
+            <Plus className="h-4 w-4" />
+            Tambah
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={() => update(-1)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-coffee hover:text-coffee"
+              aria-label="Kurangi jumlah"
+            >
+              <Minus className="h-4 w-4" />
+            </button>
+            <span className="flex-1 text-center font-semibold tabular-nums">{qty} di keranjang</span>
+            <button
+              type="button"
+              onClick={add}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-coffee hover:text-coffee"
+              aria-label="Tambah jumlah"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
