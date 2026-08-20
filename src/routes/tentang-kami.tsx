@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Coffee, Award, Users, Heart } from "lucide-react";
-import aboutImage from "../../public/images/about-coffee-beans.jpg";
+
+const aboutImage = "/images/about-coffee-beans.jpg";
 
 export const Route = createFileRoute("/tentang-kami")({
   head: () => ({

@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
 import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
-import heroImage from "../../public/images/hero-coffee-shop.jpg";
-import aboutImage from "../../public/images/about-coffee-beans.jpg";
+
+const heroImage = "/images/hero-coffee-shop.jpg";
+const aboutImage = "/images/about-coffee-beans.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
