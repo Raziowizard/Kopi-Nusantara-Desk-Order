@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
-import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart, Star } from "lucide-react";
+import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
+import { MenuPreview } from "../components/MenuPreview";
+import { TestimonialsSection } from "../components/TestimonialsSection";
+import { FaqSection } from "../components/FaqSection";
 
 const heroImage = "/images/hero-coffee-shop.jpg";
 const aboutImage = "/images/about-coffee-beans.jpg";
@@ -124,81 +127,11 @@ function HomePage() {
       </section>
 
       {/* Menu preview */}
-      <section className="bg-stone-soft/50 py-20">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="text-center">
-            <span className="text-sm font-semibold uppercase tracking-wider text-coffee">Menu</span>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl">Menu Favorit Kami</h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              Pilihan racikan kopi, minuman segar, dan camilan nikmat untuk menemani hari Anda.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <MenuCard
-              title="Es Kopi Susu Nusantara"
-              price="Rp 20rb"
-              desc="Espresso double shot, gula aren asli, dan susu segar pilihan."
-              tag="Best Seller"
-            />
-            <MenuCard
-              title="Manual Brew Gayo V60"
-              price="Rp 25rb"
-              desc="Single origin Arabika Aceh Gayo dengan aroma fruity notes yang segar."
-              tag="Single Origin"
-            />
-            <MenuCard
-              title="Matcha Cream Latte"
-              price="Rp 22rb"
-              desc="Matcha Jepang premium dengan foam susu yang lembut dan manis pas."
-              tag="Non-Kopi"
-            />
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link
-              to="/menu"
-              className="inline-flex items-center gap-2 rounded-full bg-coffee px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-coffee-light"
-            >
-              Lihat Seluruh Menu <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      <MenuPreview />
 
       {/* Testimonials */}
-      <section id="testimoni" className="bg-stone-soft/50 py-20">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-12 text-center">
-            <span className="text-sm font-semibold uppercase tracking-wider text-coffee">Testimoni</span>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl">Kata Pengunjung Kami</h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              Pengalaman mereka menikmati rasa dan suasana di Kopi Nusantara.
-            </p>
-          </div>
+      <TestimonialsSection />
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <TestimonialCard
-              quote="Es Kopi Susu Nusantara rasanya juara! Manis dari gula arennya pas banget, kopinya tetap kerasa tebal. Tempatnya juga tenang dan wifinya kencang buat WFC."
-              name="Alya Rahma"
-              role="Pelanggan Setia"
-              image="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
-            />
-            <TestimonialCard
-              quote="Untuk pecinta manual brew wajib coba V60 Gayo-nya. Notes fruity-nya dapet banget dan ditenagai barista yang ramah buat diajak diskusi kopi."
-              name="Budi Pratama"
-              role="Penikmat Kopi"
-              image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
-            />
-            <TestimonialCard
-              quote="Pesan via WhatsApp gampang banget, responnya cepat. Roti Bakar Kaya Butter-nya pas banget dipadukan sama Matcha Latte hangat di sore hari!"
-              name="Siti Nurhaliza"
-              role="Karyawan Swasta"
-              image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
-            />
-          </div>
-        </div>
-      </section>
 
       {/* Location preview */}
       <section className="mx-auto max-w-6xl px-4 py-20">
@@ -261,66 +194,13 @@ function HomePage() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <FaqSection />
+
       {/* WhatsApp Order */}
       <section className="mx-auto max-w-6xl px-4 pb-20">
         <WhatsAppOrder />
       </section>
     </>
-  );
-}
-
-function TestimonialCard({
-  quote,
-  name,
-  role,
-  image,
-}: {
-  quote: string;
-  name: string;
-  role: string;
-  image: string;
-}) {
-  return (
-    <div className="flex flex-col justify-between rounded-2xl border border-border/60 bg-card p-6 shadow-sm sm:p-8">
-      <div>
-        <div className="mb-4 flex gap-1 text-amber">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="h-4 w-4 fill-current" />
-          ))}
-        </div>
-        <p className="italic leading-relaxed text-foreground/90">"{quote}"</p>
-      </div>
-      <div className="mt-6 flex items-center gap-4 border-t border-border/60 pt-5">
-        <img
-          src={image}
-          alt={`Foto ${name}`}
-          width={48}
-          height={48}
-          loading="lazy"
-          className="h-12 w-12 rounded-full object-cover"
-        />
-        <div>
-          <h4 className="font-bold text-foreground">{name}</h4>
-          <p className="text-xs text-muted-foreground">{role}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MenuCard({ title, price, desc, tag }: { title: string; price: string; desc: string; tag: string }) {
-  return (
-    <div className="group rounded-2xl bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-      <div className="flex items-start justify-between">
-        <div>
-          <span className="inline-block rounded-full bg-amber/10 px-2.5 py-1 text-xs font-semibold text-amber-dark">
-            {tag}
-          </span>
-          <h3 className="mt-3 font-serif text-xl font-bold text-foreground">{title}</h3>
-        </div>
-        <span className="font-bold text-coffee">{price}</span>
-      </div>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-    </div>
   );
 }
