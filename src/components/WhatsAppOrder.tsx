@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { MessageCircle, Minus, Plus, Utensils } from "lucide-react";
+import type { CartItem } from "@/lib/cart";
+import { formatPrice } from "@/lib/cart";
 
 interface WhatsAppOrderProps {
   defaultMessage?: string;
+  items?: CartItem[];
 }
 
-export function WhatsAppOrder({ defaultMessage = "" }: WhatsAppOrderProps) {
+export function WhatsAppOrder({ defaultMessage = "", items = [] }: WhatsAppOrderProps) {
   const [tableNumber, setTableNumber] = useState<number | "">("");
   const [note, setNote] = useState(defaultMessage);
 
@@ -19,7 +22,19 @@ export function WhatsAppOrder({ defaultMessage = "" }: WhatsAppOrderProps) {
 
   const handleOrder = () => {
     const table = typeof tableNumber === "number" && tableNumber > 0 ? tableNumber : "-";
-    const text = `Halo Kopi Nusantara!\nSaya ingin memesan dari meja *${table}*.\n\n${note || "Mohon ditunjukkan menu yang tersedia."}`;
+    let text = `Halo Kopi Nusantara!\nSaya ingin memesan dari meja *${table}*.`;
+
+    if (items.length > 0) {
+      const total = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const lines = items.map((item, index) => `${index + 1}. ${item.title} x${item.qty} — ${formatPrice(item.price * item.qty)}`);
+      text += `\n\n${lines.join("\n")}\n\nTotal perkiraan: *${formatPrice(total)}*`;
+      if (note.trim()) {
+        text += `\n\nCatatan tambahan: ${note.trim()}`;
+      }
+    } else {
+      text += `\n\n${note.trim() || "Mohon ditunjukkan menu yang tersedia."}`;
+    }
+
     const encoded = encodeURIComponent(text);
     window.open(`https://wa.me/6281234567890?text=${encoded}`, "_blank", "noopener,noreferrer");
   };
@@ -33,7 +48,7 @@ export function WhatsAppOrder({ defaultMessage = "" }: WhatsAppOrderProps) {
           </div>
           <h2 className="font-serif text-2xl font-bold md:text-3xl">Pesan dari Meja Anda</h2>
           <p className="mt-2 text-primary-foreground/80">
-            Masukkan nomor meja, tulis pesanan, dan kirim langsung ke WhatsApp kami. Praktis, tanpa antre!
+            Masukkan nomor meja, tambahkan catatan jika perlu, dan kirim langsung ke WhatsApp kami. Praktis, tanpa antre!
           </p>
 
           <div className="mt-8 flex flex-col items-start gap-6 rounded-2xl bg-coffee-dark/50 p-6 text-left md:flex-row md:items-end">
@@ -75,14 +90,14 @@ export function WhatsAppOrder({ defaultMessage = "" }: WhatsAppOrderProps) {
 
             <div className="w-full flex-[2]">
               <label htmlFor="order-note" className="mb-2 block text-sm font-medium text-primary-foreground/90">
-                Catatan Pesanan
+                Catatan Tambahan
               </label>
               <input
                 id="order-note"
                 type="text"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Contoh: 1 Es Kopi Susu, 1 Roti Bakar..."
+                placeholder="Contoh: gula aren dipisah, es batu terpisah..."
                 className="h-12 w-full rounded-xl border border-primary-foreground/20 bg-coffee-dark/50 px-4 text-primary-foreground placeholder:text-primary-foreground/40 focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/30"
               />
             </div>
