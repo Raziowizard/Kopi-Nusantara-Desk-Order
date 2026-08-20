@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
-import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
+import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart, Star } from "lucide-react";
 
 const heroImage = "/images/hero-coffee-shop.jpg";
 const aboutImage = "/images/about-coffee-beans.jpg";
