@@ -37,7 +37,7 @@ function HomePage() {
             width={1280}
             height={720}
             className="h-full w-full object-cover"
-            fetchpriority="high"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-coffee-dark/90 via-coffee-dark/70 to-coffee-dark/40" />
         </div>
