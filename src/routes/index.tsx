@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
-import { MapPin, Clock, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
+import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
 import { MenuPreview } from "../components/MenuPreview";
 import { TestimonialsSection } from "../components/TestimonialsSection";
 import { FaqSection } from "../components/FaqSection";
