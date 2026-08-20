@@ -124,81 +124,11 @@ function HomePage() {
       </section>
 
       {/* Menu preview */}
-      <section className="bg-stone-soft/50 py-20">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="text-center">
-            <span className="text-sm font-semibold uppercase tracking-wider text-coffee">Menu</span>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl">Menu Favorit Kami</h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              Pilihan racikan kopi, minuman segar, dan camilan nikmat untuk menemani hari Anda.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <MenuCard
-              title="Es Kopi Susu Nusantara"
-              price="Rp 20rb"
-              desc="Espresso double shot, gula aren asli, dan susu segar pilihan."
-              tag="Best Seller"
-            />
-            <MenuCard
-              title="Manual Brew Gayo V60"
-              price="Rp 25rb"
-              desc="Single origin Arabika Aceh Gayo dengan aroma fruity notes yang segar."
-              tag="Single Origin"
-            />
-            <MenuCard
-              title="Matcha Cream Latte"
-              price="Rp 22rb"
-              desc="Matcha Jepang premium dengan foam susu yang lembut dan manis pas."
-              tag="Non-Kopi"
-            />
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link
-              to="/menu"
-              className="inline-flex items-center gap-2 rounded-full bg-coffee px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-coffee-light"
-            >
-              Lihat Seluruh Menu <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      <MenuPreview />
 
       {/* Testimonials */}
-      <section id="testimoni" className="bg-stone-soft/50 py-20">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-12 text-center">
-            <span className="text-sm font-semibold uppercase tracking-wider text-coffee">Testimoni</span>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl">Kata Pengunjung Kami</h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              Pengalaman mereka menikmati rasa dan suasana di Kopi Nusantara.
-            </p>
-          </div>
+      <TestimonialsSection />
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <TestimonialCard
-              quote="Es Kopi Susu Nusantara rasanya juara! Manis dari gula arennya pas banget, kopinya tetap kerasa tebal. Tempatnya juga tenang dan wifinya kencang buat WFC."
-              name="Alya Rahma"
-              role="Pelanggan Setia"
-              image="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
-            />
-            <TestimonialCard
-              quote="Untuk pecinta manual brew wajib coba V60 Gayo-nya. Notes fruity-nya dapet banget dan ditenagai barista yang ramah buat diajak diskusi kopi."
-              name="Budi Pratama"
-              role="Penikmat Kopi"
-              image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
-            />
-            <TestimonialCard
-              quote="Pesan via WhatsApp gampang banget, responnya cepat. Roti Bakar Kaya Butter-nya pas banget dipadukan sama Matcha Latte hangat di sore hari!"
-              name="Siti Nurhaliza"
-              role="Karyawan Swasta"
-              image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
-            />
-          </div>
-        </div>
-      </section>
 
       {/* Location preview */}
       <section className="mx-auto max-w-6xl px-4 py-20">
