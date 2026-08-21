@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { OrderSummary } from "../components/OrderSummary";
+import type { CartItem } from "@/lib/cart";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
 import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
 import { MenuPreview } from "../components/MenuPreview";
