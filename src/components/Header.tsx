@@ -27,11 +27,12 @@ export function Header() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
-            const active = pathname === link.to;
+            const active = pathname === link.to && !link.hash;
             return (
               <Link
-                key={link.to}
+                key={`${link.to}-${link.hash ?? "root"}`}
                 to={link.to}
+                hash={link.hash}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                   active
                     ? "bg-coffee text-primary-foreground"
