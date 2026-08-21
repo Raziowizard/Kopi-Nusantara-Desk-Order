@@ -32,7 +32,7 @@ export function Header() {
               <Link
                 key={`${link.to}-${link.hash ?? "root"}`}
                 to={link.to}
-                hash={link.hash}
+                {...(link.hash ? { hash: link.hash } : {})}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                   active
                     ? "bg-coffee text-primary-foreground"
