@@ -8,6 +8,8 @@ const navLinks = [
   { to: "/menu", label: "Menu" },
   { to: "/lokasi", label: "Lokasi" },
   { to: "/kontak", label: "Kontak" },
+  { to: "/", hash: "testimoni", label: "Testimoni" },
+  { to: "/", hash: "faq", label: "FAQ" },
 ];
 
 export function Header() {
@@ -25,11 +27,12 @@ export function Header() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
-            const active = pathname === link.to;
+            const active = pathname === link.to && !link.hash;
             return (
               <Link
-                key={link.to}
+                key={`${link.to}-${link.hash ?? "root"}`}
                 to={link.to}
+                {...(link.hash ? { hash: link.hash } : {})}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                   active
                     ? "bg-coffee text-primary-foreground"
@@ -66,11 +69,12 @@ export function Header() {
         <div className="border-t border-border/60 bg-background px-4 pb-4 md:hidden">
           <nav className="mt-3 flex flex-col gap-1">
             {navLinks.map((link) => {
-              const active = pathname === link.to;
+              const active = pathname === link.to && !link.hash;
               return (
                 <Link
-                  key={link.to}
+                  key={`${link.to}-${link.hash ?? "root"}`}
                   to={link.to}
+                  {...(link.hash ? { hash: link.hash } : {})}
                   onClick={() => setMobileOpen(false)}
                   className={`rounded-lg px-4 py-3 text-sm font-medium ${
                     active ? "bg-coffee text-primary-foreground" : "text-foreground hover:bg-muted"
