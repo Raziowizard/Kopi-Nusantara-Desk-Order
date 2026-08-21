@@ -74,7 +74,7 @@ export function Header() {
                 <Link
                   key={`${link.to}-${link.hash ?? "root"}`}
                   to={link.to}
-                  hash={link.hash}
+                  {...(link.hash ? { hash: link.hash } : {})}
                   onClick={() => setMobileOpen(false)}
                   className={`rounded-lg px-4 py-3 text-sm font-medium ${
                     active ? "bg-coffee text-primary-foreground" : "text-foreground hover:bg-muted"
