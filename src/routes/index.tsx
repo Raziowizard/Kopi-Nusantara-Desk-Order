@@ -206,7 +206,7 @@ function HomePage() {
 
       {/* WhatsApp Order */}
       <section className="mx-auto max-w-6xl px-4 pb-20">
-        <WhatsAppOrder />
+        <WhatsAppOrder items={cart} />
       </section>
     </>
   );
