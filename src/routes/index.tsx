@@ -4,6 +4,7 @@ import { OrderSummary } from "../components/OrderSummary";
 import type { CartItem } from "@/lib/cart";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
 import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
+import { StickyCartButton } from "../components/StickyCartButton";
 import { MenuPreview } from "../components/MenuPreview";
 import { TestimonialsSection } from "../components/TestimonialsSection";
 import { FaqSection } from "../components/FaqSection";
@@ -208,6 +209,8 @@ function HomePage() {
       <section className="mx-auto max-w-6xl px-4 pb-20">
         <WhatsAppOrder items={cart} />
       </section>
+
+      <StickyCartButton cart={cart} />
     </>
   );
 }
