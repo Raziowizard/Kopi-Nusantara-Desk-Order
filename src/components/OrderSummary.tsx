@@ -25,7 +25,7 @@ export function OrderSummary({ cart, setCart }: OrderSummaryProps) {
   const clearCart = () => setCart([]);
 
   return (
-    <section className="bg-cream/50 py-16">
+    <section id="ringkasan" className="scroll-mt-24 bg-cream/50 py-16">
       <div className="mx-auto max-w-6xl px-4">
         <div className="rounded-3xl bg-card p-6 shadow-sm md:p-10">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
