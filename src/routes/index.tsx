@@ -32,6 +32,8 @@ const highlights = [
 ];
 
 function HomePage() {
+  const [cart, setCart] = useState<CartItem[]>([]);
+
   return (
     <>
       {/* Hero */}
