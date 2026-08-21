@@ -12,6 +12,12 @@ const navLinks = [
   { to: "/", hash: "faq", label: "FAQ" },
 ];
 
+function smoothScrollTo(hash?: string) {
+  if (!hash) return;
+  const el = document.getElementById(hash);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -33,6 +39,12 @@ export function Header() {
                 key={`${link.to}-${link.hash ?? "root"}`}
                 to={link.to}
                 {...(link.hash ? { hash: link.hash } : {})}
+                onClick={(e) => {
+                  if (link.hash && pathname === link.to) {
+                    e.preventDefault();
+                    smoothScrollTo(link.hash);
+                  }
+                }}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                   active
                     ? "bg-coffee text-primary-foreground"
@@ -75,7 +87,13 @@ export function Header() {
                   key={`${link.to}-${link.hash ?? "root"}`}
                   to={link.to}
                   {...(link.hash ? { hash: link.hash } : {})}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => {
+                    setMobileOpen(false);
+                    if (link.hash && pathname === link.to) {
+                      e.preventDefault();
+                      smoothScrollTo(link.hash);
+                    }
+                  }}
                   className={`rounded-lg px-4 py-3 text-sm font-medium ${
                     active ? "bg-coffee text-primary-foreground" : "text-foreground hover:bg-muted"
                   }`}
