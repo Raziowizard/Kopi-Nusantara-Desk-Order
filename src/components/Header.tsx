@@ -8,6 +8,8 @@ const navLinks = [
   { to: "/menu", label: "Menu" },
   { to: "/lokasi", label: "Lokasi" },
   { to: "/kontak", label: "Kontak" },
+  { to: "/", hash: "testimoni", label: "Testimoni" },
+  { to: "/", hash: "faq", label: "FAQ" },
 ];
 
 export function Header() {
