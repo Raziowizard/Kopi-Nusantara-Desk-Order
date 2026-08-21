@@ -132,7 +132,9 @@ function HomePage() {
       </section>
 
       {/* Menu preview */}
-      <MenuPreview />
+      <MenuPreview cart={cart} setCart={setCart} />
+
+      {cart.length > 0 && <OrderSummary cart={cart} setCart={setCart} />}
 
       {/* Testimonials */}
       <TestimonialsSection />
