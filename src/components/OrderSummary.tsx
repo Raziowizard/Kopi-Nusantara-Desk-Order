@@ -1,28 +1,11 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
-import type { CartItem } from "@/lib/cart";
 import { formatPrice } from "@/lib/cart";
+import { useCart } from "@/lib/cart-context";
 
-interface OrderSummaryProps {
-  cart: CartItem[];
-  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
-}
+export function OrderSummary() {
+  const { items, total, updateQty, removeItem, clearCart } = useCart();
 
-export function OrderSummary({ cart, setCart }: OrderSummaryProps) {
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-  const updateQty = (title: string, delta: number) => {
-    setCart((prev) =>
-      prev
-        .map((item) => (item.title === title ? { ...item, qty: Math.max(0, item.qty + delta) } : item))
-        .filter((item) => item.qty > 0)
-    );
-  };
-
-  const removeItem = (title: string) => {
-    setCart((prev) => prev.filter((item) => item.title !== title));
-  };
-
-  const clearCart = () => setCart([]);
+  if (items.length === 0) return null;
 
   return (
     <section id="ringkasan" className="scroll-mt-24 bg-cream/50 py-16">
@@ -43,7 +26,7 @@ export function OrderSummary({ cart, setCart }: OrderSummaryProps) {
           </div>
 
           <div className="mt-8 divide-y divide-border">
-            {cart.map((item) => (
+            {items.map((item) => (
               <div
                 key={item.title}
                 className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:justify-between"
