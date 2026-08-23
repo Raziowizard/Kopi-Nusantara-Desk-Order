@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Coffee, Menu, X } from "lucide-react";
+import { CartIconButton } from "@/components/CartIconButton";
 
 const navLinks = [
   { to: "/", label: "Beranda" },
@@ -57,23 +58,26 @@ export function Header() {
           })}
         </nav>
 
-        <Link
-          to="/"
-          hash="pesan"
-          className="hidden rounded-full bg-coffee px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-coffee-light md:inline-flex"
-        >
-          Pesan Sekarang
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/"
+            hash="pesan"
+            className="hidden rounded-full bg-coffee px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-coffee-light md:inline-flex"
+          >
+            Pesan Sekarang
+          </Link>
+          <CartIconButton />
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          onClick={() => setMobileOpen((v) => !v)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
-          aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
+            aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav */}
