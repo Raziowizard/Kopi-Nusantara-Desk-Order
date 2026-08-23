@@ -1,13 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Coffee, Leaf, UtensilsCrossed, ArrowRight } from "lucide-react";
+import { MenuItemCard } from "@/components/MenuItemCard";
+import { StickyCartButton } from "@/components/StickyCartButton";
+import { menuItems, type MenuItem } from "@/lib/menu-data";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
       { title: "Menu — Kopi Nusantara" },
-      { name: "description", content: "Lihat menu lengkap Kopi Nusantara: kopi, minuman non-kopi, makanan, dan camilan favorit." },
+      { name: "description", content: "Lihat menu lengkap Kopi Nusantara: kopi, minuman non-kopi, makanan, dan camilan favorit. Tambahkan langsung ke keranjang." },
       { property: "og:title", content: "Menu — Kopi Nusantara" },
-      { property: "og:description", content: "Lihat menu lengkap Kopi Nusantara: kopi, minuman non-kopi, makanan, dan camilan favorit." },
+      { property: "og:description", content: "Lihat menu lengkap Kopi Nusantara: kopi, minuman non-kopi, makanan, dan camilan favorit. Tambahkan langsung ke keranjang." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -15,42 +18,23 @@ export const Route = createFileRoute("/menu")({
   component: MenuPage,
 });
 
-const coffeeMenu = [
-  { name: "Es Kopi Susu Nusantara", price: "Rp 20rb", desc: "Espresso double shot, gula aren asli, dan susu segar pilihan." },
-  { name: "Manual Brew Gayo V60", price: "Rp 25rb", desc: "Single origin Arabika Aceh Gayo dengan aroma fruity notes yang segar." },
-  { name: "Americano (Hot/Ice)", price: "Rp 18rb", desc: "Espresso racikan house blend dengan rasa tebal, bersih, dan menyegarkan." },
-  { name: "Kopi Susu Aren", price: "Rp 22rb", desc: "Espresso dengan gula aren cair dan susu segar, manis alami." },
-  { name: "Cappuccino", price: "Rp 23rb", desc: "Espresso, susu steamed, dan foam lembut dengan taburan cokelat." },
-  { name: "Kopi Tubruk", price: "Rp 15rb", desc: "Seduhan kopi tradisional dengan biji kopi murni, kental dan aromatik." },
-];
-
-const nonCoffeeMenu = [
-  { name: "Matcha Cream Latte", price: "Rp 22rb", desc: "Matcha Jepang premium dengan foam susu yang lembut dan manis pas." },
-  { name: "Artisan Earl Grey Tea", price: "Rp 18rb", desc: "Seduhan teh hitam aromatik dengan sentuhan rasa citrus yang menenangkan." },
-  { name: "Chocolate Mint", price: "Rp 24rb", desc: "Cokelat Belgian dengan sentuhan mint segar dan whipped cream." },
-  { name: "Lemon Squash", price: "Rp 19rb", desc: "Perasan lemon segar, soda, dan madu lokal, cocok untuk siang hari." },
-];
-
-const foodMenu = [
-  { name: "Roti Bakar Kaya Butter", price: "Rp 18rb", desc: "Roti renyah dengan isian selai srikaya khas & mentega gurih meleleh." },
-  { name: "Cireng Bumbu Rujak", price: "Rp 15rb", desc: "Camilan khas renyah di luar, lembut di dalam dengan bumbu pedas manis." },
-  { name: "Pisang Goreng Keju", price: "Rp 17rb", desc: "Pisang matang dibalut tepung renyah, taburan keju dan susu kental manis." },
-  { name: "Kentang Goreng Truffle", price: "Rp 20rb", desc: "Kentang goreng crisp dengan bumbu truffle oil dan parmesan." },
-];
-
 function MenuPage() {
+  const coffeeMenu = menuItems.filter((i) => i.category === "Kopi");
+  const nonCoffeeMenu = menuItems.filter((i) => i.category === "Non-Kopi");
+  const foodMenu = menuItems.filter((i) => i.category === "Makanan");
+
   return (
     <>
       <section className="bg-coffee-dark py-20 text-primary-foreground">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h1 className="font-serif text-4xl font-bold md:text-5xl">Menu Kopi Nusantara</h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-            Pilihan racikan kopi, minuman segar, dan camilan nikmat untuk menemani momen Anda.
+            Pilihan racikan kopi, minuman segar, dan camilan nikmat untuk menemani momen Anda. Pesanan dari beranda tetap tersimpan di keranjang.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
+      <section className="mx-auto max-w-6xl px-4 py-16 pb-28">
         <MenuSection
           icon={Coffee}
           title="Menu Kopi"
@@ -86,6 +70,8 @@ function MenuPage() {
           </Link>
         </div>
       </section>
+
+      <StickyCartButton />
     </>
   );
 }
@@ -99,7 +85,7 @@ function MenuSection({
   icon: typeof Coffee;
   title: string;
   subtitle: string;
-  items: { name: string; price: string; desc: string }[];
+  items: MenuItem[];
 }) {
   return (
     <div className="mb-16">
@@ -112,20 +98,9 @@ function MenuSection({
           <p className="text-sm text-muted-foreground">{subtitle}</p>
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
-          <div
-            key={item.name}
-            className="group flex flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <div>
-              <div className="flex items-start justify-between gap-2">
-                <h3 className="font-serif text-lg font-bold text-foreground">{item.name}</h3>
-                <span className="shrink-0 font-bold text-coffee">{item.price}</span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
-            </div>
-          </div>
+          <MenuItemCard key={item.title} item={item} />
         ))}
       </div>
     </div>

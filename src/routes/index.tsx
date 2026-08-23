@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { OrderSummary } from "../components/OrderSummary";
-import type { CartItem } from "@/lib/cart";
+import { useCart } from "@/lib/cart-context";
 import { WhatsAppOrder } from "../components/WhatsAppOrder";
 import { MapPin, Clock, Phone, ArrowRight, Coffee, Leaf, Heart } from "lucide-react";
 import { StickyCartButton } from "../components/StickyCartButton";
@@ -33,7 +32,7 @@ const highlights = [
 ];
 
 function HomePage() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const { items } = useCart();
 
   return (
     <>
@@ -133,9 +132,9 @@ function HomePage() {
       </section>
 
       {/* Menu preview */}
-      <MenuPreview cart={cart} setCart={setCart} />
+      <MenuPreview />
 
-      {cart.length > 0 && <OrderSummary cart={cart} setCart={setCart} />}
+      <OrderSummary />
 
       {/* Testimonials */}
       <TestimonialsSection />
@@ -207,10 +206,10 @@ function HomePage() {
 
       {/* WhatsApp Order */}
       <section className="mx-auto max-w-6xl px-4 pb-20">
-        <WhatsAppOrder items={cart} />
+        <WhatsAppOrder items={items} />
       </section>
 
-      <StickyCartButton cart={cart} />
+      <StickyCartButton />
     </>
   );
 }
