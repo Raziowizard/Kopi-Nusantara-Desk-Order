@@ -80,7 +80,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/60">
-          © {new Date().getFullYear()} Kopi Nusantara. All Rights Reserved.
+          © {new Date().getFullYear()} Kopi Nusantara - Yoshio Faris Makarim. All Rights Reserved.
         </div>
       </div>
     </footer>
